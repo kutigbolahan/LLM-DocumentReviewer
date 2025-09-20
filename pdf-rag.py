@@ -24,4 +24,4 @@ content = data[0].page_content
 print(content[:100])
 #End of PDF Ingection
 
-#Extract Text from Pdf Files and split into small chuncks#
+#Extract Text from Pdf Files and split into small chuncks
