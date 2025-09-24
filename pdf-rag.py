@@ -7,7 +7,14 @@
 ## run pip install -r requirements.txt to install the required packages
 
 from langchain_community.document_loaders import UnstructuredPDFLoader
-from langchain_community.document_loaders import OnlinePDFLoader
+from langchain_ollama import OllamaEmbeddings, ChatOllama
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_community.vectorstores import Chroma
+from langchain.prompts import ChatPromptTemplate, PromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.runnables import RunnablePassthrough
+from langchain.retrievers.multi_query import MultiQueryRetriever
+
 
 doc_path = "./data/cv.pdf"
 model = "llama3.2"
@@ -25,9 +32,7 @@ print(content[:100])
 #End of PDF Injection
 
 #Extract Text from Pdf Files and split into small chuncks
-from langchain_ollama import OllamaEmbeddings
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import Chroma
+
 
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=1200, chunk_overlap=300)
 chunks= text_splitter.split_documents(data)
@@ -47,13 +52,6 @@ vector_db = Chroma.from_documents(
 print("done adding to vector database.........")
 
 #Retrival Process
-
-from langchain.prompts import ChatPromptTemplate, PromptTemplate
-from langchain_core.output_parsers import StrOutputParser
-from langchain_ollama import ChatOllama
-from langchain_core.runnables import RunnablePassthrough
-from langchain.retrievers.multi_query import MultiQueryRetriever
-
 llm = ChatOllama(model=model)
 
 QUERY_PROMPT = PromptTemplate(
@@ -85,5 +83,5 @@ chain =(
     |StrOutputParser()
 )
 #res = chain.invoke(input=('What is the document about'))
-res = chain.invoke(input=("What can be done to improve the CV?"))
+res = chain.invoke(input=("What are your favourite things about the cv?"))
 print(res)
