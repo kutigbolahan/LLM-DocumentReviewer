@@ -38,7 +38,7 @@ This makes it useful for:
 
 **Document Upload, Summary & Q&A**
 
-*(Tip: you can add screenshots or even a GIF to show the workflow — upload → summary → Q&A)*
+<img width="1512" height="982" alt="Image" src="https://github.com/user-attachments/assets/828361ec-6bb0-4d7a-9278-6562d24820d1" />
 
 ---
 
